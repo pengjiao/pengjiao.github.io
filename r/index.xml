@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>R on Technique Share</title>
-    <link>http://example.org/r/</link>
-    <description>Recent content in R on Technique Share</description>
+    <title>R on Pengjiao`s blog</title>
+    <link>https://pengjiao.github.io/r/</link>
+    <description>Recent content in R on Pengjiao`s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 07 Sep 2020 14:01:19 +0800</lastBuildDate>
     
-	<atom:link href="http://example.org/r/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://pengjiao.github.io/r/index.xml" rel="self" type="application/rss+xml" />
     
     
   </channel>

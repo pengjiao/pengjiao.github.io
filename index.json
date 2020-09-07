@@ -1,10 +1,17 @@
 [
 {
-	"uri": "http://example.org/basics/",
-	"title": "Basics",
+	"uri": "http://example.org/r/",
+	"title": "R",
 	"tags": [],
 	"description": "",
-	"content": "Chapter 1 Some Chapter title Lorem Ipsum.\n"
+	"content": "Chapter 1 R R Tips and Tricks\n"
+},
+{
+	"uri": "http://example.org/r/rmarkdown/",
+	"title": "Rmarkdown",
+	"tags": [],
+	"description": "",
+	"content": ""
 },
 {
 	"uri": "http://example.org/",

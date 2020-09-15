@@ -3,26 +3,36 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://pengjiao.github.io/r/</loc>
+    <loc>/r/</loc>
     <lastmod>2020-09-07T14:01:19+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://pengjiao.github.io/</loc>
+    <loc>/statistics/</loc>
+    <lastmod>2020-09-07T14:01:19+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/statistics/pca_plsda/</loc>
+    <lastmod>2020-09-08T15:45:45+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/</loc>
     <lastmod>2020-09-07T15:45:08+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://pengjiao.github.io/r/rmarkdown/</loc>
+    <loc>/r/rmarkdown/</loc>
     <lastmod>2020-09-07T15:15:11+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://pengjiao.github.io/categories/</loc>
+    <loc>/categories/</loc>
   </url>
   
   <url>
-    <loc>https://pengjiao.github.io/tags/</loc>
+    <loc>/tags/</loc>
   </url>
   
 </urlset>

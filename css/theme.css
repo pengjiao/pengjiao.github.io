@@ -1078,12 +1078,20 @@ pre .copy-to-clipboard {
     position: absolute;
     right: 4px;
     top: 4px;
+<<<<<<< HEAD
     background-color: #C1C4C6;
+=======
+    background-color: #949bab;
+>>>>>>> origin/master
     color: #ccc;
     border-radius: 2px;
 }
 pre .copy-to-clipboard:hover {
+<<<<<<< HEAD
     background-color: #00bdf3;
+=======
+    background-color: #656c72;
+>>>>>>> origin/master
     color: #fff;
 }
 .parent-element {
@@ -1127,6 +1135,7 @@ pre .copy-to-clipboard:hover {
     padding-left: 1rem;
 }
 
+<<<<<<< HEAD
 #homelinks {
   background-color: #9c6fb6;
   color: #fff;
@@ -1134,6 +1143,8 @@ pre .copy-to-clipboard:hover {
   border-bottom: 4px solid #9c6fb6;
 }
 
+=======
+>>>>>>> origin/master
 #searchResults {
     text-align: left;
 }

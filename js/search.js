@@ -75,6 +75,7 @@ $( document ).ready(function() {
                 "(?:\\s?(?:[\\w]+)\\s?){0,"+numContextWords+"}" +
                     term+"(?:\\s?(?:[\\w]+)\\s?){0,"+numContextWords+"}");
             item.context = text;
+<<<<<<< HEAD
             var divcontext = document.createElement("div");
             divcontext.className = "context";
             divcontext.innerText = (item.context || '');
@@ -87,6 +88,17 @@ $( document ).ready(function() {
             divsuggestion.innerText = '» ' + item.title;
             divsuggestion.appendChild(divcontext);
             return divsuggestion.outerHTML;
+=======
+            return '<div class="autocomplete-suggestion" ' +
+                'data-term="' + term + '" ' +
+                'data-title="' + item.title + '" ' +
+                'data-uri="'+ item.uri + '" ' +
+                'data-context="' + item.context + '">' +
+                '» ' + item.title +
+                '<div class="context">' +
+                (item.context || '') +'</div>' +
+                '</div>';
+>>>>>>> origin/master
         },
         /* onSelect callback fires when a search suggestion is chosen */
         onSelect: function(e, term, item) {

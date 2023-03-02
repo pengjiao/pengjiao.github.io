@@ -47,6 +47,7 @@ function fallbackMessage(action) {
     return actionMsg;
 }
 
+<<<<<<< HEAD
 function switchTab(tabGroup, tabId) {
     allTabItems = jQuery("[data-tab-group='"+tabGroup+"']");
     targetTabItems = jQuery("[data-tab-group='"+tabGroup+"'][data-tab-item='"+tabId+"']");
@@ -98,6 +99,8 @@ function restoreTabSelections() {
     }
 }
 
+=======
+>>>>>>> origin/master
 // for the window resize
 $(window).resize(function() {
     setMenuHeight();
@@ -134,8 +137,11 @@ $(window).resize(function() {
 
 
 jQuery(document).ready(function() {
+<<<<<<< HEAD
     restoreTabSelections();
 
+=======
+>>>>>>> origin/master
     jQuery('#sidebar .category-icon').on('click', function() {
         $( this ).toggleClass("fa-angle-down fa-angle-right") ;
         $( this ).parent().parent().children('ul').toggle() ;
@@ -282,7 +288,11 @@ jQuery(document).ready(function() {
              e.stopPropagation();
          }
      });
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> origin/master
     jQuery(document).keydown(function(e) {
       // prev links - left arrow key
       if(e.which == '37') {
@@ -317,7 +327,11 @@ jQuery(document).ready(function() {
         });
     }
 
+<<<<<<< HEAD
     /**
+=======
+    /** 
+>>>>>>> origin/master
     * Fix anchor scrolling that hides behind top nav bar
     * Courtesy of https://stackoverflow.com/a/13067009/28106
     *
@@ -399,10 +413,33 @@ jQuery(document).ready(function() {
 
         $(document).ready($.proxy(anchorScrolls, 'init'));
     })(window.document, window.history, window.location);
+<<<<<<< HEAD
 
 });
 
 jQuery(window).on('load', function() {
+=======
+    
+});
+
+jQuery(window).on('load', function() {
+
+    function adjustForScrollbar() {
+        if ((parseInt(jQuery('#body-inner').height()) + 83) >= jQuery('#body').height()) {
+            jQuery('.nav.nav-next').css({ 'margin-right': getScrollBarWidth() });
+        } else {
+            jQuery('.nav.nav-next').css({ 'margin-right': 0 });
+        }
+    }
+
+    // adjust sidebar for scrollbar
+    adjustForScrollbar();
+
+    jQuery(window).smartresize(function() {
+        adjustForScrollbar();
+    });
+
+>>>>>>> origin/master
     // store this page in session
     sessionStorage.setItem(jQuery('body').data('url'), 1);
 

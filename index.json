@@ -1,10 +1,17 @@
 [
 {
-	"uri": "https://pengjiao.github.io/basics/",
-	"title": "Basics",
+	"uri": "https://pengjiao.github.io/r/",
+	"title": "R",
 	"tags": [],
 	"description": "",
-	"content": "Chapter X Some Chapter title Lorem Ipsum.\n"
+	"content": "Tips and Tricks for using R Programming In this section, I will share my notes on useful techniques for using R programming, along with corresponding examples.\n"
+},
+{
+	"uri": "https://pengjiao.github.io/statistics/",
+	"title": "Statistics",
+	"tags": [],
+	"description": "",
+	"content": "Statistics "
 },
 {
 	"uri": "https://pengjiao.github.io/",

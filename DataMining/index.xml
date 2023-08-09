@@ -5,15 +5,14 @@
     <link>https://pengjiao.github.io/datamining/</link>
     <description>Recent content in DataMinings on Myblog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-US</language>
-    <lastBuildDate>Wed, 09 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://pengjiao.github.io/datamining/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-US</language><atom:link href="https://pengjiao.github.io/datamining/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>TCGA_GTEx_database_1</title>
+      <title></title>
       <link>https://pengjiao.github.io/datamining/tcga_gtex_mrna_differential_analysis_1/</link>
-      <pubDate>Wed, 09 Aug 2023 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://pengjiao.github.io/datamining/tcga_gtex_mrna_differential_analysis_1/</guid>
-      <description>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to// be compatible with the behavior of Pandoc :first-child&#34;);var i, h, a;for (i = 0; i 0) h.removeAttribute(a[0].name);}});/*! jQuery v3.6.0 | (c) OpenJS Foundation and other contributors | jquery.org/license */!function(e,t){&#34;use strict&#34;;&#34;object&#34;==typeof module&amp;&amp;&#34;object&#34;==typeof module.exports?module.exports=e.document?t(e,!0):function(e){if(!e.document)throw new Error(&#34;jQuery requires a window with a document&#34;);return t(e)}:t(e)}(&#34;undefined&#34;!=typeof window?window:this,function(C,e){&#34;use strict&#34;;var t=[],r=Object.getPrototypeOf,s=t.slice,g=t.flat?function(e){return t.</description>
+      <description>—title: hello htmldate: 2023-08-09categories:- Exampletags:- Markdown—// Pandoc 2.9 adds attributes on both header and div. We remove the former (to// be compatible with the behavior of Pandoc :first-child&#34;);var i, h, a;for (i = 0; i 0) h.removeAttribute(a[0].name);}});/*! jQuery v3.6.0 | (c) OpenJS Foundation and other contributors | jquery.org/license */!function(e,t){&#34;use strict&#34;;&#34;object&#34;==typeof module&amp;&amp;&#34;object&#34;==typeof module.exports?module.exports=e.document?t(e,!0):function(e){if(!e.document)throw new Error(&#34;</description>
     </item>
     
   </channel>

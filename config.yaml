@@ -4,6 +4,7 @@ defaultContentLanguage: en
 title: Hugo Learn Documentation
 theme: hugo-theme-learn
 metaDataFormat: yaml
+publishDir: docs
 defaultContentLanguageInSubdir: yes
 params:
   author: Mathieu Cornic
@@ -88,3 +89,5 @@ Languages:
           weight: 30
     title: Hugo 主题的 Learn 文档
     weight: 3
+    
+

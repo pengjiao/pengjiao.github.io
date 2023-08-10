@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.117.0">
+    <meta name="description" content="Documentation for Hugo Learn Theme">
+<meta name="author" content="Mathieu Cornic">
+
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+
+    <title>TCGA GTEx data mining 1 :: Documentation for Hugo Learn Theme</title>
+
+    
+    <link href="/css/nucleus.css?1691642371" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1691642371" rel="stylesheet">
+    <link href="/css/hybrid.css?1691642371" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1691642371" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1691642371" rel="stylesheet">
+    <link href="/css/auto-complete.css?1691642371" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1691642371" rel="stylesheet">
+    <link href="/css/theme.css?1691642371" rel="stylesheet">
+    <link href="/css/tabs.css?1691642371" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1691642371" rel="stylesheet">
+    
+    
+
+    <script src="/js/jquery-3.3.1.min.js?1691642371"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/en/datamining/2023-08-10-tcga-gtex-data-mining-1/">
+    <nav id="sidebar" class="showVisitedLinks">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href='/en'>
+
+<svg id="grav-logo" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	width="100%" height="100%"  viewBox="0 0 285.1 69.9" xml:space="preserve">
+<g>
+	<path d="M35,0c9.6,0,17.9,3.4,24.7,10.3c6.8,6.8,10.3,15,10.3,24.7c0,9.7-3.4,17.9-10.3,24.7c-6.8,6.8-15,10.3-24.7,10.3
+		c-9.7,0-17.9-3.4-24.7-10.3C3.4,52.8,0,44.6,0,34.9c0-9.6,3.4-17.9,10.3-24.7C17.1,3.4,25.3,0,35,0z M22.3,63.7
+		c0.3-7.4,0.3-14.7,0-22.1c-2.1-0.4-4-0.4-5.9,0c-0.2,0.8-0.2,2.5-0.1,4.9c0.1,2.3,0,3.9-0.3,4.8c-1.7-0.6-2.7-2.1-3.1-4.6
+		c-0.1-0.7-0.1-3.3-0.1-8c0-14.5-0.1-23-0.3-25.6c-3.6,4.1-5.6,7-5.9,8.5v10.9c0,4.5,0.1,8.1,0.2,10.9c0,0.4,0,1.3-0.1,2.8
+		c-0.1,1.2,0,2.1,0.1,2.6c0.1,0.6,1.1,2.1,2.8,4.7C13.2,58.7,17.5,62.2,22.3,63.7z M44.6,65.4c0.3-5,0.2-12.9-0.1-23.6
+		c-2.1-0.3-4.1-0.3-5.9,0c-0.2,2-0.2,5.1-0.1,9.5c0.1,4.3,0,7.5-0.1,9.5c-2.9,0.4-5,0.3-6.2-0.1c-0.2-5.6-0.2-15.2-0.1-28.7
+		c0.1-12.4,0-21.8-0.3-28.3c-2.4,0.1-4.3,0.6-5.7,1.3c-0.1,7.7-0.2,17.7-0.1,30.1c0,16.5,0,26.6,0,30.3c2.3,1.1,5.4,1.7,9.4,1.7
+		C38.9,66.9,42.1,66.4,44.6,65.4z M48.1,64.1c9.7-4.6,15.7-12,18-22.2c-1.8-0.2-3.8-0.3-6.1-0.3c-1.6,3.9-2.6,6.3-3.2,7.2
+		c-1.1,1.7-2,2.5-2.7,2.5C54,46,54,39.1,54,30.5c0-11.5,0-18.4,0-20.9c-1.4-1.4-3.3-2.5-5.7-3.4C48.1,6.3,48,6.4,48,6.7
+		c0,3.5,0,13.1,0,28.8C47.9,47.2,48,56.8,48.1,64.1z"/>
+</g>
+<g>
+	<path d="M116.6,51.3h-29c-0.5,0-0.9-0.1-1.3-0.2c-0.4-0.2-0.7-0.4-1-0.7c-0.3-0.3-0.5-0.6-0.7-1c-0.2-0.4-0.2-0.8-0.2-1.3V16.3h6.3
+		V45h25.8V51.3z"/>
+	<path d="M154.8,51.3h-22.9c-0.9,0-1.8-0.2-2.9-0.5c-1-0.3-2-0.8-2.9-1.5c-0.9-0.7-1.6-1.6-2.2-2.8c-0.6-1.1-0.9-2.5-0.9-4.2V19.5
+		c0-0.4,0.1-0.9,0.2-1.2c0.2-0.4,0.4-0.7,0.7-1c0.3-0.3,0.6-0.5,1-0.7c0.4-0.2,0.8-0.2,1.3-0.2h28.6v6.3h-25.4v19.8
+		c0,0.8,0.2,1.5,0.7,1.9s1.1,0.7,1.9,0.7h22.9V51.3z M151.9,37h-20v-6.4h20V37z"/>
+	<path d="M197.3,51.3H191v-8.6h-22.3v8.6h-6.3V33.8c0-2.6,0.4-4.9,1.3-7.1s2.1-4,3.7-5.5c1.6-1.5,3.4-2.8,5.5-3.6
+		c2.1-0.9,4.5-1.3,7-1.3h14.3c0.4,0,0.9,0.1,1.2,0.2c0.4,0.2,0.7,0.4,1,0.7s0.5,0.6,0.7,1c0.2,0.4,0.2,0.8,0.2,1.2V51.3z
+		 M168.7,36.4H191V22.6h-11.2c-0.2,0-0.6,0-1.2,0.1c-0.6,0.1-1.4,0.2-2.2,0.4c-0.8,0.2-1.7,0.6-2.6,1c-0.9,0.5-1.8,1.1-2.5,2
+		c-0.8,0.8-1.4,1.9-1.9,3.1c-0.5,1.2-0.7,2.8-0.7,4.5V36.4z"/>
+	<path d="M241.7,28.1c0,1.4-0.2,2.7-0.5,3.9c-0.4,1.1-0.8,2.1-1.5,3c-0.6,0.9-1.3,1.6-2.1,2.2c-0.8,0.6-1.6,1.1-2.5,1.5
+		c-0.9,0.4-1.8,0.7-2.6,0.9c-0.9,0.2-1.7,0.3-2.5,0.3l13.3,11.5h-9.8l-13.2-11.5h-4.6v-6.3H230c0.8-0.1,1.5-0.2,2.2-0.5
+		c0.7-0.3,1.2-0.6,1.7-1.1c0.5-0.5,0.9-1,1.1-1.6c0.3-0.6,0.4-1.4,0.4-2.2v-4c0-0.4,0-0.6-0.1-0.8c-0.1-0.2-0.2-0.3-0.3-0.4
+		c-0.1-0.1-0.3-0.1-0.4-0.2c-0.2,0-0.3,0-0.4,0h-20.9v28.7h-6.3V19.5c0-0.4,0.1-0.9,0.2-1.2c0.2-0.4,0.4-0.7,0.7-1
+		c0.3-0.3,0.6-0.5,1-0.7c0.4-0.2,0.8-0.2,1.3-0.2H234c1.4,0,2.6,0.3,3.6,0.8s1.8,1.2,2.4,1.9c0.6,0.8,1,1.6,1.3,2.5
+		c0.3,0.9,0.4,1.7,0.4,2.5V28.1z"/>
+	<path d="M285.1,48.6c0,0.5-0.1,0.9-0.3,1.3c-0.2,0.4-0.4,0.7-0.7,1c-0.3,0.3-0.6,0.5-1,0.7c-0.4,0.2-0.8,0.2-1.2,0.2
+		c-0.4,0-0.8-0.1-1.2-0.2c-0.4-0.1-0.8-0.4-1.1-0.7l-23.2-24.2v24.7h-6.3V19c0-0.7,0.2-1.2,0.5-1.8c0.4-0.5,0.8-0.9,1.4-1.2
+		c0.6-0.2,1.2-0.3,1.9-0.2s1.2,0.4,1.6,0.9l23.2,24.2V16.3h6.3V48.6z"/>
+</g>
+</svg>
+
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1691642371"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1691642371"></script>
+<script type="text/javascript">
+    
+        var baseurl = "\/\/en";
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1691642371"></script>
+
+    
+  </div>
+  
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/en/datamining/" title="DataMining" class="dd-item
+        parent
+        
+        
+        ">
+      <a href="/en/datamining/">
+          <b>1. </b>DataMining
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/en/datamining/2023-08-10-tcga-gtex-data-mining-1/" title="TCGA GTEx data mining 1" class="dd-item active">
+        <a href="/en/datamining/2023-08-10-tcga-gtex-data-mining-1/">
+        TCGA GTEx data mining 1
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/en/basics/" title="Basics" class="dd-item
+        
+        
+        
+        ">
+      <a href="/en/basics/">
+          <b>2. </b>Basics
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/en/basics/requirements/" title="Requirements" class="dd-item
+        
+        
+        
+        ">
+      <a href="/en/basics/requirements/">
+          Requirements
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/en/basics/installation/" title="Installation" class="dd-item
+        
+        
+        
+        ">
+      <a href="/en/basics/installation/">
+          Installation
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/en/basics/configuration/" title="Configuration" class="dd-item
+        
+        
+        
+        ">
+      <a href="/en/basics/configuration/">
+          Configuration
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/en/basics/style-customization/" title="Style customization" class="dd-item
+        
+        
+        
+        ">
+      <a href="/en/basics/style-customization/">
+          Style customization
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+        
+    </ul>
+
+    
+    
+      <section id="shortcuts">
+        <h3>More</h3>
+        <ul>
+          
+              <li>
+                  <a class="padding" href="https://github.com/matcornic/hugo-theme-learn"><i class='fab fa-fw fa-github'></i> GitHub repo</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="/en/showcase"><i class='fas fa-fw fa-camera'></i> Showcases</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://gohugo.io/"><i class='fas fa-fw fa-bookmark'></i> Hugo Documentation</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="en/credits"><i class='fas fa-fw fa-bullhorn'></i> Credits</a>
+              </li>
+          
+        </ul>
+      </section>
+    
+
+    
+    <section id="prefooter">
+      <hr/>
+      <ul>
+      
+        <li>
+          <a class="padding">
+            <i class="fas fa-language fa-fw"></i>
+          <div class="select-style">
+            <select id="select-language" onchange="location = this.value;">
+          
+          
+          
+              
+              
+                  
+                    
+                    
+                      <option id="en" value="/en/datamining/2023-08-10-tcga-gtex-data-mining-1/" selected>English</option>
+                    
+                  
+              
+                  
+              
+                  
+              
+          
+        </select>
+        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          width="255px" height="255px" viewBox="0 0 255 255" style="enable-background:new 0 0 255 255;" xml:space="preserve">
+          <g>
+            <g id="arrow-drop-down">
+              <polygon points="0,63.75 127.5,191.25 255,63.75 		" />
+            </g>
+          </g>
+        </svg>
+        </div>
+        </a>
+        </li>
+      
+
+      
+        <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fas fa-history fa-fw"></i> Clear History</a></li>
+      
+      </ul>
+    </section>
+    
+    <section id="footer">
+      <center>
+    
+    <a class="github-button" href="https://github.com/matcornic/hugo-theme-learn/archive/master.zip" data-icon="octicon-cloud-download" aria-label="Download matcornic/hugo-theme-learn on GitHub">Download</a>
+
+    
+    <a class="github-button" href="https://github.com/matcornic/hugo-theme-learn" data-icon="octicon-star" data-show-count="true" aria-label="Star matcornic/hugo-theme-learn on GitHub">Star</a>
+
+    
+    <a class="github-button" href="https://github.com/matcornic/hugo-theme-learn/fork" data-icon="octicon-repo-forked" data-show-count="true" aria-label="Fork matcornic/hugo-theme-learn on GitHub">Fork</a>
+
+    <p>Built with <a href="https://github.com/matcornic/hugo-theme-learn"><i class="fas fa-heart"></i></a> from <a href="https://getgrav.org">Grav</a> and <a href="https://gohugo.io/">Hugo</a></p>
+</center>
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                  
+                  
+                  
+                  <div id="top-github-link">
+                    <a class="github-link" title='Edit this page' href="https://github.com/matcornic/hugo-theme-learn/edit/master/exampleSite/content/datamining/2023-08-10-tcga-gtex-data-mining-1/index.en.html" target="blank">
+                      <i class="fas fa-code-branch"></i>
+                      <span id="top-github-link-text">Edit this page</span>
+                    </a>
+                  </div>
+                  
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/en/'>Learn Theme for Hugo</a> > <a href='/en/datamining/'>DataMining</a> > TCGA GTEx data mining 1
+          
+        
+          
+        
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+<div class="tags">
+
+  <a class="tag-link" href="/en/tags/r-markdown">R Markdown</a>
+
+</div>
+
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              TCGA GTEx data mining 1
+            </h1>
+          
+
+        
+
+
+
+
+
+<p>The FOLR1 gene and the MUC16 gene are significant genes involved in ovarian cancer, potentially serving as therapeutic targets.</p>
+<p>In this blog post, I will investigate the expression levels of the MUC16 gene in ovarian cancer patients who exhibit low expression of the FOLR1 gene. The analysis will involve comparing gene exression data from ovarian cancer tissue with that from normal ovary tissue. However, given the lack of normal ovary control in The Cancer Genome Atlas (TCGA) data, I have incorporated normal ovary data from the Genotype-Tissue Expression (GTEx) database.</p>
+<p>The RECOUNT2 and UCSC Xena projects, which provide gene expression data from TCGA and GTEx database, utilize consistent preprocessing pipelines to reduce batch effects and enhance the reliability of comparisons across diverse studies. Yet, these two projects may employ different preprocessing and normalization methods. To ensure the robustness of results, I have treated the two projects separately in this analysis.</p>
+<p>For data acquisition, the R packages TCGAbiolinks (using the TCGAquery_recount2 function) and UCSCXenaTools were used to query and download TCGA-OV data and normal ovarian tissue data from GTEx, available in both the RECOUNT2 and UCSC Xena projects.</p>
+<div id="load-library" class="section level2">
+<h2>01. Load library</h2>
+<p>We first need to load the necessary R packages that will be utilized throughout our study.</p>
+<pre class="r"><code>library(SummarizedExperiment)
+library(TCGAbiolinks)
+library(recount)
+library(biomaRt)
+library(org.Hs.eg.db)
+library(dplyr)
+library(tibble)
+library(CCSBUtils)
+library(ggpubr)
+library(stringr)</code></pre>
+</div>
+<div id="data-from-recount2-project" class="section level2">
+<h2>02. Data from RECOUNT2 project</h2>
+<div id="data-prepare" class="section level3">
+<h3>Data prepare</h3>
+<p>Next, we obtain and prepare our gene expression data from the RECOUNT2 project using R package TCGAbiolinks (TCGAquery_recount2).</p>
+<p>TCGAbiolinks is an R package that provides an integrated interface to access, analyze, and visualize TCGA data. With its ‘TCGAquery_recount2’ function, it allows us to access the preprocessed gene expression data available on the RECOUNT2 project with ease.</p>
+<p>In the following steps, we’ll focus on tidying up this data, ensuring it’s ready for the subsequent analysis stages. We’ll select our genes of interest (FOLR1 and MUC16), and create subsets of the data corresponding to ovarian cancer samples and normal ovary tissue samples.</p>
+<p>After we obtain the data, we extract the gene expression data for the ovary tissue from both projects into SummarizedExperiment (SE) objects. These objects are then saved in an RData file for future reference and reanalysis.</p>
+<pre class="r"><code>## query from Recount2 platform: Ovary Carcinoma
+recount.gtex &lt;- TCGAquery_recount2(project=&quot;GTEX&quot;, tissue=&quot;ovary&quot;)
+recount.tcga &lt;- TCGAquery_recount2(project=&quot;TCGA&quot;, tissue=&quot;ovary&quot;)
+
+##  save data for reanalysis
+# save(recount.gtex, recount.tcga, file = &quot;recount_gtex_tcga_ovary.RData&quot;)
+#load(&quot;recount_gtex_tcga_ovary.RData&quot;)
+
+## to get the SE object
+SE.recount.gtex &lt;- recount.gtex$GTEX_ovary
+SE.recount.tcga &lt;- recount.tcga$TCGA_ovary</code></pre>
+<p>The Recount2 project uses Rail-RNA as its primary computational pipeline to process and align RNA sequencing (RNA-seq) data. Rail-RNA is an alignment and transcriptome reconstruction tool. There is difference between coverage counts from Recount2 project using Rail-RNA and typical read count matrices. Rail-RNA employs a “binning” procedure to the aligned reads, resulting in what are sometimes called “read coverage” or “coverage counts”. These coverage counts are the number of reads that overlap with each base pair of a gene, rather than just counting each read once as is done in traditional “read counts”. However, most methods were developed for read typical count matrices. Therefore, the Recount2 data must be scaled in order to compare samples within and across studies. Scaling ensures that differences in sequencing depth across samples do not distort the counts, making them directly comparable. In the context of your analysis, scaling the Recount2 data ensures that the gene expression levels you observe are reflective of true biological differences, rather than technical differences from sequencing.</p>
+<p>There are two methods to scale the count data: either auc or mapped_reads. If set to auc it will scale the counts by the total coverage of the sample. That is, the area under the curve (AUC) of the coverage. If set to mapped_reads it will scale the counts by the number of mapped reads, whether the library was paired-end or not, and the desired read length (L).</p>
+<p><span class="math display">\[
+\sum_{i} \frac{coverage_i}{AUC} * target = \text{{scaled read counts}} \tag{1}
+\]</span></p>
+<p><span class="math display">\[
+\sum_{i} \frac{coverage_i}{\text{{Read Length}} * target}{mapped} = \text{{scaled read counts}} \tag{2}
+\]</span></p>
+<pre class="r"><code>## preparing/scaling Recount2 data because it was sequenced using Rail-RNA
+eset.gtex &lt;- assays(scale_counts(recount.gtex$GTEX_ovary, round = TRUE))$counts
+eset.tcga &lt;- assays(scale_counts(recount.tcga$TCGA_ovary, round = TRUE))$counts
+
+## Check that the number of reads is less than or equal to 40 million
+rse_scaled &lt;- scale_counts(recount.gtex$GTEX_ovary, round = TRUE)
+summary(colSums(assays(rse_scaled)$counts)) / 1e6</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   31.33   34.77   35.37   35.52   36.42   38.67</code></pre>
+<p>The next step is to segregate the TCGA data into primary tumors and normal samples. Note that TCGA does not typically include normal tissue samples. We then merge the GTEx and TCGA cancer data, joining them by gene names. This creates a new dataframe where each row represents a gene and the columns contain expression data from the two different sources. Duplicates, which might have same gene ID are removed. Lastly, we normalize and filter the data using TCGAanalyze functions from the TCGAbiolinks package. This includes GC content normalization, which adjusts for the varying guanine and cytosine content across different genes. Then, we apply a quantile filter, removing genes that have expression values in the lowest 25% quantile, as they may represent noise.</p>
+<p>This completes the data preparation process. With this, our gene expression data from RECOUNT2 is now ready for further analysis.</p>
+<pre class="r"><code>## replacing UUIDs with TCGA barcodes:
+colnames(eset.tcga) &lt;- colData(recount.tcga$TCGA_ovary)$gdc_cases.samples.portions.analytes.aliquots.submitter_id
+
+## segregate between primary tumors and normal samples
+eset.tcga.cancer &lt;- eset.tcga[,which(colData(recount.tcga$TCGA_ovary)$gdc_cases.samples.sample_type==&quot;Primary Tumor&quot;)]
+eset.tcga.normal &lt;- eset.tcga[,which(colData(recount.tcga$TCGA_ovary)$gdc_cases.samples.sample_type==&quot;Solid Tissue Normal&quot;)] # there is no tissue normal
+
+## merging data by row names
+dataPrep.ov &lt;- merge(as.data.frame(eset.gtex), as.data.frame(eset.tcga.cancer), by=0, all=TRUE)
+
+## rename gene id and remove duplicated rows with same gene id
+dataPrep.ov &lt;- column_to_rownames(dataPrep.ov, var = &quot;Row.names&quot;)
+newgene &lt;- str_split(rownames(dataPrep.ov), &quot;\\.&quot;, simplify = T)[,1]
+dataPrep.fil &lt;- dataPrep.ov[which(!duplicated(newgene)),]
+rownames(dataPrep.fil) &lt;- newgene[which(!duplicated(newgene))]
+
+## normalization and filtering data
+dataNorm.ov &lt;- TCGAanalyze_Normalization(tabDF = dataPrep.fil,
+                                          geneInfo = geneInfoHT,
+                                          method = &quot;gcContent&quot;)
+
+dataFilt.ov &lt;- TCGAanalyze_Filtering(tabDF = dataNorm.ov,
+                                      method = &quot;quantile&quot;, 
+                                      qnt.cut =  0.25)</code></pre>
+</div>
+<div id="differential-analysis" class="section level3">
+<h3>Differential analysis</h3>
+<p>Then, we perform differential expression analysis between normal and tumor samples using the TCGAanalyze_DEA function from the TCGAbiolinks package. This analysis is performed on a set of 108 normal and 430 tumor samples across 42755 mRNA or genes.</p>
+<p>The ‘method’ argument is set to ‘glmLRT’, which specifies the use of the likelihood ratio test for model fitting in the limma package.</p>
+<p>After the differential expression analysis, the Ensembl gene IDs in the result are converted to HGNC symbols using the BioMart package. This makes the results more interpretable as HGNC symbols are more commonly used in the literature. The ‘getBM’ function from the BioMart package is used for this conversion. The resulting table contains both the Ensembl gene IDs and corresponding HGNC symbols for each differentially expressed gene.</p>
+<pre class="r"><code>## set &quot;metadata&quot; argument to true when dealing with TCGA data
+#in order to extract batch correction data
+#processing 108 normal and 430 tumor samples on 42755 mRNA or genes
+DEG.ov &lt;- TCGAanalyze_DEA( mat1 = dataFilt.ov[,colnames(eset.gtex)],
+                            mat2 = dataFilt.ov[,colnames(eset.tcga.cancer)],
+                            metadata =FALSE,
+                            pipeline=&quot;limma&quot;,
+                            voom = TRUE,
+                            Cond1type = &quot;Normal&quot;,
+                            Cond2type = &quot;Tumor&quot;,
+                            fdr.cut = 0.01 ,
+                            logFC.cut = 1,
+                            method = &quot;glmLRT&quot;)</code></pre>
+<p><img src="/en/datamining/2023-08-10-tcga-gtex-data-mining-1/index.en_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<pre class="r"><code>## converting ensenmbl gene ids to huugo gymbols using Biomart package
+mart &lt;- useDataset(&quot;hsapiens_gene_ensembl&quot;, useMart(&quot;ensembl&quot;))
+G_list &lt;- getBM(filters= &quot;ensembl_gene_id&quot;, attributes= c(&quot;ensembl_gene_id&quot;,&quot;hgnc_symbol&quot;), values=rownames(DEG.ov), mart= mart)
+
+DEG.ov &lt;- rownames_to_column(DEG.ov, var = &quot;ensembl_gene_id&quot;)
+deg.ov &lt;- merge(DEG.ov, G_list, by = &quot;ensembl_gene_id&quot;)</code></pre>
+</div>
+<div id="examine-the-expression-levels" class="section level3">
+<h3>Examine the expression levels</h3>
+<p>We define the low expression of the FOLR1 gene as expression level of FOLR1 gene was lower than median expression level. First we tranform counts into TPMs using getTPM function.</p>
+<p><span class="math display">\[
+RPKM =\frac{Number\ of\ Reads}{(\frac{Gene\ Length}{1000})*(\frac{Total\ reads}{10^6})}
+\]</span></p>
+<p><span class="math display">\[
+TPM = \frac{{RPKM}}{{\sum{RPKM}}} \times 10^6
+\]</span></p>
+<pre class="r"><code>## transform counts into TPMs
+gtex.tpm &lt;- getTPM(scale_counts(recount.gtex$GTEX_ovary, round = TRUE)) %&gt;% data.frame()
+tcga.tpm &lt;- getTPM(scale_counts(recount.tcga$TCGA_ovary, round = TRUE)) %&gt;% data.frame()
+
+## replacing UUIDs with TCGA barcodes:
+colnames(tcga.tpm) &lt;- colData(recount.tcga$TCGA_ovary)$gdc_cases.samples.portions.analytes.aliquots.submitter_id
+
+## rename the gene id and remove duplicated rows with same gene id from TPM data
+tpmgenes &lt;- str_split(rownames(tcga.tpm), &quot;\\.&quot;, simplify = T)[,1]
+tcga.tpm.df &lt;- tcga.tpm[which(!duplicated(tpmgenes)),]
+rownames(tcga.tpm.df) &lt;- tpmgenes[which(!duplicated(tpmgenes))]
+gtex.tpm.df &lt;- gtex.tpm[which(!duplicated(tpmgenes)),]
+rownames(gtex.tpm.df) &lt;- tpmgenes[which(!duplicated(tpmgenes))]
+
+
+## converting ensenmbl gene ids to huugo gymbols using Biomart package
+G_list.tpm &lt;- getBM(filters= &quot;ensembl_gene_id&quot;, attributes= c(&quot;ensembl_gene_id&quot;,&quot;hgnc_symbol&quot;), values=rownames(tcga.tpm.df), mart= mart)
+
+## remove the rows without gene names
+### merging data by ensembl_gene_id
+tcga.tpm.df$ensembl_gene_id &lt;- rownames(tcga.tpm.df)
+tcga.tpm.mer &lt;- merge(G_list.tpm, tcga.tpm.df, by = &quot;ensembl_gene_id&quot;)
+tcga.tpm.sel &lt;- tcga.tpm.mer[tcga.tpm.mer$hgnc_symbol != &quot;&quot;, -1]
+tcga.tpm.sel &lt;- tcga.tpm.sel[which(!duplicated(tcga.tpm.sel$hgnc_symbol)),]
+rownames(tcga.tpm.sel) &lt;- NULL
+tcga.tpm.fil &lt;- column_to_rownames(tcga.tpm.sel, &quot;hgnc_symbol&quot;)
+
+gtex.tpm.df$ensembl_gene_id &lt;- row.names.data.frame(gtex.tpm.df)
+gtex.tpm.mer &lt;- merge(G_list.tpm, gtex.tpm.df, by = &quot;ensembl_gene_id&quot;)
+gtex.tpm.sel &lt;- gtex.tpm.mer[gtex.tpm.mer$hgnc_symbol != &quot;&quot;,-1]
+gtex.tpm.sel &lt;- gtex.tpm.sel[which(!duplicated(gtex.tpm.sel$hgnc_symbol)),]
+rownames(gtex.tpm.sel) &lt;- NULL
+gtex.tpm.fil &lt;- column_to_rownames(gtex.tpm.sel, &quot;hgnc_symbol&quot;)</code></pre>
+<p>There is no significant difference between low and high expressions of the FOLR1 gene. And MUC16 expression is significantly higher in patients with both low and high FOLR1 gene expression compared to normal ovary tissues.</p>
+<pre class="r"><code>## calculate the mean tpm per gene
+tcga.tpm.mean &lt;- apply(tcga.tpm.fil, 1, mean, na.rm = T)
+tcga.tpm.mean[names(tcga.tpm.mean) == &quot;FOLR1&quot;]</code></pre>
+<pre><code>##    FOLR1 
+## 419.3596</code></pre>
+<pre class="r"><code>tcga.tpm.mean[names(tcga.tpm.mean) == &quot;MUC16&quot;]</code></pre>
+<pre><code>##    MUC16 
+## 42.91637</code></pre>
+<pre class="r"><code>## extract patients with FOLR1 expression level lower than median value
+lower.sample &lt;- colnames(tcga.tpm.fil)[which(tcga.tpm.fil[rownames(tcga.tpm.fil) == &quot;FOLR1&quot;,] &lt; tcga.tpm.mean[names(tcga.tpm.mean) == &quot;FOLR1&quot;])] # 260
+upper.sample &lt;- colnames(tcga.tpm.fil)[which(tcga.tpm.fil[rownames(tcga.tpm.fil) == &quot;FOLR1&quot;,] &gt;= tcga.tpm.mean[names(tcga.tpm.mean) == &quot;FOLR1&quot;])] # 170
+
+## extract tpm data of folr1 and muc16
+lower.tcga.tpm &lt;- tcga.tpm.fil[rownames(tcga.tpm.fil) %in% c(&quot;FOLR1&quot;, &quot;MUC16&quot;),colnames(tcga.tpm.fil) %in% lower.sample]
+upper.tcga.tpm &lt;- tcga.tpm.fil[rownames(tcga.tpm.fil) %in% c(&quot;FOLR1&quot;, &quot;MUC16&quot;),colnames(tcga.tpm.fil) %in% upper.sample]
+lower.gtex.tpm &lt;- gtex.tpm.fil[rownames(gtex.tpm.fil) %in% c(&quot;FOLR1&quot;, &quot;MUC16&quot;),]
+
+## data used for boxplot
+ov.lower.df &lt;- data.frame(t(lower.tcga.tpm))
+ov.lower.df$group &lt;- &quot;Low_FOLR1&quot;
+ov.upper.df &lt;- data.frame(t(upper.tcga.tpm))
+ov.upper.df$group &lt;- &quot;High_FOLR1&quot;
+nor.df &lt;- data.frame(t(lower.gtex.tpm))
+nor.df$group &lt;- &quot;Normal&quot;
+box.df &lt;- rbind(ov.lower.df, ov.upper.df, nor.df)
+box.df$FOLR1 &lt;- log2(box.df$FOLR1 + 1)
+box.df$MUC16 &lt;- log2(box.df$MUC16 + 1)
+box.df$group &lt;- factor(box.df$group, levels = c(&quot;Normal&quot;, &quot;Low_FOLR1&quot;, &quot;High_FOLR1&quot;))
+
+
+
+my_comparisons &lt;- list( c(&quot;Normal&quot;, &quot;Low_FOLR1&quot;), c(&quot;Normal&quot;, &quot;High_FOLR1&quot;), c(&quot;Low_FOLR1&quot;, &quot;High_FOLR1&quot;) )
+
+ggboxplot(box.df, x = &quot;group&quot;, y = &quot;MUC16&quot;,
+          color = &quot;group&quot;, palette = &quot;lancet&quot;,
+          add = &quot;jitter&quot;) +
+  stat_compare_means(comparisons = my_comparisons)</code></pre>
+<p><img src="/en/datamining/2023-08-10-tcga-gtex-data-mining-1/index.en_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<pre class="r"><code>ggboxplot(box.df, x = &quot;group&quot;, y = &quot;FOLR1&quot;,
+          color = &quot;group&quot;, palette = &quot;lancet&quot;,
+          add = &quot;jitter&quot;) +
+  stat_compare_means(comparisons = my_comparisons)</code></pre>
+<p><img src="/en/datamining/2023-08-10-tcga-gtex-data-mining-1/index.en_files/figure-html/unnamed-chunk-7-2.png" width="672" /></p>
+</div>
+</div>
+
+
+<footer class="footline">
+	
+</footer>
+
+        
+        </div>
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="/en/datamining/" title="DataMining"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="/en/basics/" title="Basics" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1691642371"></script>
+    <script src="/js/perfect-scrollbar.min.js?1691642371"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1691642371"></script>
+    <script src="/js/jquery.sticky.js?1691642371"></script>
+    <script src="/js/featherlight.min.js?1691642371"></script>
+    <script src="/js/highlight.pack.js?1691642371"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/js/modernizr.custom-3.6.0.js?1691642371"></script>
+    <script src="/js/learn.js?1691642371"></script>
+    <script src="/js/hugo-learn.js?1691642371"></script>
+    
+        
+            <script src="https://unpkg.com/mermaid@8.8.0/dist/mermaid.min.js"></script>
+        
+        <script>
+            mermaid.initialize({ startOnLoad: true });
+        </script>
+    
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-105947713-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>
+

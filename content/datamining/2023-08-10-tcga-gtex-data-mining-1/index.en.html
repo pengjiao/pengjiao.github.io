@@ -1,0 +1,214 @@
+---
+title: TCGA GTEx data mining 1
+author: Pengjiao
+date: '2023-08-09'
+slug: []
+categories:
+  - R
+tags:
+  - R Markdown
+weight: 5
+output: 
+  html_document:
+    toc: yes
+    toc_float: yes
+    highlight: tango
+---
+
+
+
+<p>The FOLR1 gene and the MUC16 gene are significant genes involved in ovarian cancer, potentially serving as therapeutic targets.</p>
+<p>In this blog post, I will investigate the expression levels of the MUC16 gene in ovarian cancer patients who exhibit low expression of the FOLR1 gene. The analysis will involve comparing gene exression data from ovarian cancer tissue with that from normal ovary tissue. However, given the lack of normal ovary control in The Cancer Genome Atlas (TCGA) data, I have incorporated normal ovary data from the Genotype-Tissue Expression (GTEx) database.</p>
+<p>The RECOUNT2 and UCSC Xena projects, which provide gene expression data from TCGA and GTEx database, utilize consistent preprocessing pipelines to reduce batch effects and enhance the reliability of comparisons across diverse studies. Yet, these two projects may employ different preprocessing and normalization methods. To ensure the robustness of results, I have treated the two projects separately in this analysis.</p>
+<p>For data acquisition, the R packages TCGAbiolinks (using the TCGAquery_recount2 function) and UCSCXenaTools were used to query and download TCGA-OV data and normal ovarian tissue data from GTEx, available in both the RECOUNT2 and UCSC Xena projects.</p>
+<div id="load-library" class="section level2">
+<h2>01. Load library</h2>
+<p>We first need to load the necessary R packages that will be utilized throughout our study.</p>
+<pre class="r"><code>library(SummarizedExperiment)
+library(TCGAbiolinks)
+library(recount)
+library(biomaRt)
+library(org.Hs.eg.db)
+library(dplyr)
+library(tibble)
+library(CCSBUtils)
+library(ggpubr)
+library(stringr)</code></pre>
+</div>
+<div id="data-from-recount2-project" class="section level2">
+<h2>02. Data from RECOUNT2 project</h2>
+<div id="data-prepare" class="section level3">
+<h3>Data prepare</h3>
+<p>Next, we obtain and prepare our gene expression data from the RECOUNT2 project using R package TCGAbiolinks (TCGAquery_recount2).</p>
+<p>TCGAbiolinks is an R package that provides an integrated interface to access, analyze, and visualize TCGA data. With its ‘TCGAquery_recount2’ function, it allows us to access the preprocessed gene expression data available on the RECOUNT2 project with ease.</p>
+<p>In the following steps, we’ll focus on tidying up this data, ensuring it’s ready for the subsequent analysis stages. We’ll select our genes of interest (FOLR1 and MUC16), and create subsets of the data corresponding to ovarian cancer samples and normal ovary tissue samples.</p>
+<p>After we obtain the data, we extract the gene expression data for the ovary tissue from both projects into SummarizedExperiment (SE) objects. These objects are then saved in an RData file for future reference and reanalysis.</p>
+<pre class="r"><code>## query from Recount2 platform: Ovary Carcinoma
+recount.gtex &lt;- TCGAquery_recount2(project=&quot;GTEX&quot;, tissue=&quot;ovary&quot;)
+recount.tcga &lt;- TCGAquery_recount2(project=&quot;TCGA&quot;, tissue=&quot;ovary&quot;)
+
+##  save data for reanalysis
+# save(recount.gtex, recount.tcga, file = &quot;recount_gtex_tcga_ovary.RData&quot;)
+#load(&quot;recount_gtex_tcga_ovary.RData&quot;)
+
+## to get the SE object
+SE.recount.gtex &lt;- recount.gtex$GTEX_ovary
+SE.recount.tcga &lt;- recount.tcga$TCGA_ovary</code></pre>
+<p>The Recount2 project uses Rail-RNA as its primary computational pipeline to process and align RNA sequencing (RNA-seq) data. Rail-RNA is an alignment and transcriptome reconstruction tool. There is difference between coverage counts from Recount2 project using Rail-RNA and typical read count matrices. Rail-RNA employs a “binning” procedure to the aligned reads, resulting in what are sometimes called “read coverage” or “coverage counts”. These coverage counts are the number of reads that overlap with each base pair of a gene, rather than just counting each read once as is done in traditional “read counts”. However, most methods were developed for read typical count matrices. Therefore, the Recount2 data must be scaled in order to compare samples within and across studies. Scaling ensures that differences in sequencing depth across samples do not distort the counts, making them directly comparable. In the context of your analysis, scaling the Recount2 data ensures that the gene expression levels you observe are reflective of true biological differences, rather than technical differences from sequencing.</p>
+<p>There are two methods to scale the count data: either auc or mapped_reads. If set to auc it will scale the counts by the total coverage of the sample. That is, the area under the curve (AUC) of the coverage. If set to mapped_reads it will scale the counts by the number of mapped reads, whether the library was paired-end or not, and the desired read length (L).</p>
+<p><span class="math display">\[
+\sum_{i} \frac{coverage_i}{AUC} * target = \text{{scaled read counts}} \tag{1}
+\]</span></p>
+<p><span class="math display">\[
+\sum_{i} \frac{coverage_i}{\text{{Read Length}} * target}{mapped} = \text{{scaled read counts}} \tag{2}
+\]</span></p>
+<pre class="r"><code>## preparing/scaling Recount2 data because it was sequenced using Rail-RNA
+eset.gtex &lt;- assays(scale_counts(recount.gtex$GTEX_ovary, round = TRUE))$counts
+eset.tcga &lt;- assays(scale_counts(recount.tcga$TCGA_ovary, round = TRUE))$counts
+
+## Check that the number of reads is less than or equal to 40 million
+rse_scaled &lt;- scale_counts(recount.gtex$GTEX_ovary, round = TRUE)
+summary(colSums(assays(rse_scaled)$counts)) / 1e6</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   31.33   34.77   35.37   35.52   36.42   38.67</code></pre>
+<p>The next step is to segregate the TCGA data into primary tumors and normal samples. Note that TCGA does not typically include normal tissue samples. We then merge the GTEx and TCGA cancer data, joining them by gene names. This creates a new dataframe where each row represents a gene and the columns contain expression data from the two different sources. Duplicates, which might have same gene ID are removed. Lastly, we normalize and filter the data using TCGAanalyze functions from the TCGAbiolinks package. This includes GC content normalization, which adjusts for the varying guanine and cytosine content across different genes. Then, we apply a quantile filter, removing genes that have expression values in the lowest 25% quantile, as they may represent noise.</p>
+<p>This completes the data preparation process. With this, our gene expression data from RECOUNT2 is now ready for further analysis.</p>
+<pre class="r"><code>## replacing UUIDs with TCGA barcodes:
+colnames(eset.tcga) &lt;- colData(recount.tcga$TCGA_ovary)$gdc_cases.samples.portions.analytes.aliquots.submitter_id
+
+## segregate between primary tumors and normal samples
+eset.tcga.cancer &lt;- eset.tcga[,which(colData(recount.tcga$TCGA_ovary)$gdc_cases.samples.sample_type==&quot;Primary Tumor&quot;)]
+eset.tcga.normal &lt;- eset.tcga[,which(colData(recount.tcga$TCGA_ovary)$gdc_cases.samples.sample_type==&quot;Solid Tissue Normal&quot;)] # there is no tissue normal
+
+## merging data by row names
+dataPrep.ov &lt;- merge(as.data.frame(eset.gtex), as.data.frame(eset.tcga.cancer), by=0, all=TRUE)
+
+## rename gene id and remove duplicated rows with same gene id
+dataPrep.ov &lt;- column_to_rownames(dataPrep.ov, var = &quot;Row.names&quot;)
+newgene &lt;- str_split(rownames(dataPrep.ov), &quot;\\.&quot;, simplify = T)[,1]
+dataPrep.fil &lt;- dataPrep.ov[which(!duplicated(newgene)),]
+rownames(dataPrep.fil) &lt;- newgene[which(!duplicated(newgene))]
+
+## normalization and filtering data
+dataNorm.ov &lt;- TCGAanalyze_Normalization(tabDF = dataPrep.fil,
+                                          geneInfo = geneInfoHT,
+                                          method = &quot;gcContent&quot;)
+
+dataFilt.ov &lt;- TCGAanalyze_Filtering(tabDF = dataNorm.ov,
+                                      method = &quot;quantile&quot;, 
+                                      qnt.cut =  0.25)</code></pre>
+</div>
+<div id="differential-analysis" class="section level3">
+<h3>Differential analysis</h3>
+<p>Then, we perform differential expression analysis between normal and tumor samples using the TCGAanalyze_DEA function from the TCGAbiolinks package. This analysis is performed on a set of 108 normal and 430 tumor samples across 42755 mRNA or genes.</p>
+<p>The ‘method’ argument is set to ‘glmLRT’, which specifies the use of the likelihood ratio test for model fitting in the limma package.</p>
+<p>After the differential expression analysis, the Ensembl gene IDs in the result are converted to HGNC symbols using the BioMart package. This makes the results more interpretable as HGNC symbols are more commonly used in the literature. The ‘getBM’ function from the BioMart package is used for this conversion. The resulting table contains both the Ensembl gene IDs and corresponding HGNC symbols for each differentially expressed gene.</p>
+<pre class="r"><code>## set &quot;metadata&quot; argument to true when dealing with TCGA data
+#in order to extract batch correction data
+#processing 108 normal and 430 tumor samples on 42755 mRNA or genes
+DEG.ov &lt;- TCGAanalyze_DEA( mat1 = dataFilt.ov[,colnames(eset.gtex)],
+                            mat2 = dataFilt.ov[,colnames(eset.tcga.cancer)],
+                            metadata =FALSE,
+                            pipeline=&quot;limma&quot;,
+                            voom = TRUE,
+                            Cond1type = &quot;Normal&quot;,
+                            Cond2type = &quot;Tumor&quot;,
+                            fdr.cut = 0.01 ,
+                            logFC.cut = 1,
+                            method = &quot;glmLRT&quot;)</code></pre>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<pre class="r"><code>## converting ensenmbl gene ids to huugo gymbols using Biomart package
+mart &lt;- useDataset(&quot;hsapiens_gene_ensembl&quot;, useMart(&quot;ensembl&quot;))
+G_list &lt;- getBM(filters= &quot;ensembl_gene_id&quot;, attributes= c(&quot;ensembl_gene_id&quot;,&quot;hgnc_symbol&quot;), values=rownames(DEG.ov), mart= mart)
+
+DEG.ov &lt;- rownames_to_column(DEG.ov, var = &quot;ensembl_gene_id&quot;)
+deg.ov &lt;- merge(DEG.ov, G_list, by = &quot;ensembl_gene_id&quot;)</code></pre>
+</div>
+<div id="examine-the-expression-levels" class="section level3">
+<h3>Examine the expression levels</h3>
+<p>We define the low expression of the FOLR1 gene as expression level of FOLR1 gene was lower than median expression level. First we tranform counts into TPMs using getTPM function.</p>
+<p><span class="math display">\[
+RPKM =\frac{Number\ of\ Reads}{(\frac{Gene\ Length}{1000})*(\frac{Total\ reads}{10^6})}
+\]</span></p>
+<p><span class="math display">\[
+TPM = \frac{{RPKM}}{{\sum{RPKM}}} \times 10^6
+\]</span></p>
+<pre class="r"><code>## transform counts into TPMs
+gtex.tpm &lt;- getTPM(scale_counts(recount.gtex$GTEX_ovary, round = TRUE)) %&gt;% data.frame()
+tcga.tpm &lt;- getTPM(scale_counts(recount.tcga$TCGA_ovary, round = TRUE)) %&gt;% data.frame()
+
+## replacing UUIDs with TCGA barcodes:
+colnames(tcga.tpm) &lt;- colData(recount.tcga$TCGA_ovary)$gdc_cases.samples.portions.analytes.aliquots.submitter_id
+
+## rename the gene id and remove duplicated rows with same gene id from TPM data
+tpmgenes &lt;- str_split(rownames(tcga.tpm), &quot;\\.&quot;, simplify = T)[,1]
+tcga.tpm.df &lt;- tcga.tpm[which(!duplicated(tpmgenes)),]
+rownames(tcga.tpm.df) &lt;- tpmgenes[which(!duplicated(tpmgenes))]
+gtex.tpm.df &lt;- gtex.tpm[which(!duplicated(tpmgenes)),]
+rownames(gtex.tpm.df) &lt;- tpmgenes[which(!duplicated(tpmgenes))]
+
+
+## converting ensenmbl gene ids to huugo gymbols using Biomart package
+G_list.tpm &lt;- getBM(filters= &quot;ensembl_gene_id&quot;, attributes= c(&quot;ensembl_gene_id&quot;,&quot;hgnc_symbol&quot;), values=rownames(tcga.tpm.df), mart= mart)
+
+## remove the rows without gene names
+### merging data by ensembl_gene_id
+tcga.tpm.df$ensembl_gene_id &lt;- rownames(tcga.tpm.df)
+tcga.tpm.mer &lt;- merge(G_list.tpm, tcga.tpm.df, by = &quot;ensembl_gene_id&quot;)
+tcga.tpm.sel &lt;- tcga.tpm.mer[tcga.tpm.mer$hgnc_symbol != &quot;&quot;, -1]
+tcga.tpm.sel &lt;- tcga.tpm.sel[which(!duplicated(tcga.tpm.sel$hgnc_symbol)),]
+rownames(tcga.tpm.sel) &lt;- NULL
+tcga.tpm.fil &lt;- column_to_rownames(tcga.tpm.sel, &quot;hgnc_symbol&quot;)
+
+gtex.tpm.df$ensembl_gene_id &lt;- row.names.data.frame(gtex.tpm.df)
+gtex.tpm.mer &lt;- merge(G_list.tpm, gtex.tpm.df, by = &quot;ensembl_gene_id&quot;)
+gtex.tpm.sel &lt;- gtex.tpm.mer[gtex.tpm.mer$hgnc_symbol != &quot;&quot;,-1]
+gtex.tpm.sel &lt;- gtex.tpm.sel[which(!duplicated(gtex.tpm.sel$hgnc_symbol)),]
+rownames(gtex.tpm.sel) &lt;- NULL
+gtex.tpm.fil &lt;- column_to_rownames(gtex.tpm.sel, &quot;hgnc_symbol&quot;)</code></pre>
+<p>There is no significant difference between low and high expressions of the FOLR1 gene. And MUC16 expression is significantly higher in patients with both low and high FOLR1 gene expression compared to normal ovary tissues.</p>
+<pre class="r"><code>## calculate the mean tpm per gene
+tcga.tpm.mean &lt;- apply(tcga.tpm.fil, 1, mean, na.rm = T)
+tcga.tpm.mean[names(tcga.tpm.mean) == &quot;FOLR1&quot;]</code></pre>
+<pre><code>##    FOLR1 
+## 419.3596</code></pre>
+<pre class="r"><code>tcga.tpm.mean[names(tcga.tpm.mean) == &quot;MUC16&quot;]</code></pre>
+<pre><code>##    MUC16 
+## 42.91637</code></pre>
+<pre class="r"><code>## extract patients with FOLR1 expression level lower than median value
+lower.sample &lt;- colnames(tcga.tpm.fil)[which(tcga.tpm.fil[rownames(tcga.tpm.fil) == &quot;FOLR1&quot;,] &lt; tcga.tpm.mean[names(tcga.tpm.mean) == &quot;FOLR1&quot;])] # 260
+upper.sample &lt;- colnames(tcga.tpm.fil)[which(tcga.tpm.fil[rownames(tcga.tpm.fil) == &quot;FOLR1&quot;,] &gt;= tcga.tpm.mean[names(tcga.tpm.mean) == &quot;FOLR1&quot;])] # 170
+
+## extract tpm data of folr1 and muc16
+lower.tcga.tpm &lt;- tcga.tpm.fil[rownames(tcga.tpm.fil) %in% c(&quot;FOLR1&quot;, &quot;MUC16&quot;),colnames(tcga.tpm.fil) %in% lower.sample]
+upper.tcga.tpm &lt;- tcga.tpm.fil[rownames(tcga.tpm.fil) %in% c(&quot;FOLR1&quot;, &quot;MUC16&quot;),colnames(tcga.tpm.fil) %in% upper.sample]
+lower.gtex.tpm &lt;- gtex.tpm.fil[rownames(gtex.tpm.fil) %in% c(&quot;FOLR1&quot;, &quot;MUC16&quot;),]
+
+## data used for boxplot
+ov.lower.df &lt;- data.frame(t(lower.tcga.tpm))
+ov.lower.df$group &lt;- &quot;Low_FOLR1&quot;
+ov.upper.df &lt;- data.frame(t(upper.tcga.tpm))
+ov.upper.df$group &lt;- &quot;High_FOLR1&quot;
+nor.df &lt;- data.frame(t(lower.gtex.tpm))
+nor.df$group &lt;- &quot;Normal&quot;
+box.df &lt;- rbind(ov.lower.df, ov.upper.df, nor.df)
+box.df$FOLR1 &lt;- log2(box.df$FOLR1 + 1)
+box.df$MUC16 &lt;- log2(box.df$MUC16 + 1)
+box.df$group &lt;- factor(box.df$group, levels = c(&quot;Normal&quot;, &quot;Low_FOLR1&quot;, &quot;High_FOLR1&quot;))
+
+
+
+my_comparisons &lt;- list( c(&quot;Normal&quot;, &quot;Low_FOLR1&quot;), c(&quot;Normal&quot;, &quot;High_FOLR1&quot;), c(&quot;Low_FOLR1&quot;, &quot;High_FOLR1&quot;) )
+
+ggboxplot(box.df, x = &quot;group&quot;, y = &quot;MUC16&quot;,
+          color = &quot;group&quot;, palette = &quot;lancet&quot;,
+          add = &quot;jitter&quot;) +
+  stat_compare_means(comparisons = my_comparisons)</code></pre>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<pre class="r"><code>ggboxplot(box.df, x = &quot;group&quot;, y = &quot;FOLR1&quot;,
+          color = &quot;group&quot;, palette = &quot;lancet&quot;,
+          add = &quot;jitter&quot;) +
+  stat_compare_means(comparisons = my_comparisons)</code></pre>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-7-2.png" width="672" /></p>
+</div>
+</div>

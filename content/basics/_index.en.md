@@ -1,11 +1,11 @@
 ---
 chapter: true
-pre: <b>1. </b>
+pre: <b>2. </b>
 title: Basics
 weight: 5
 ---
 
-### Chapter 1
+### Chapter 2
 
 # Basics
 

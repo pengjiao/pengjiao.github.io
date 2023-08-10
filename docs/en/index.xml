@@ -8,16 +8,6 @@
     <language>en</language>
     <lastBuildDate>Wed, 09 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="/en/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>TCGA GTEx data explore 1</title>
-      <link>/en/post/2023-08-09-tcga-gtex-data-explore-1/</link>
-      <pubDate>Wed, 09 Aug 2023 00:00:00 +0000</pubDate>
-      
-      <guid>/en/post/2023-08-09-tcga-gtex-data-explore-1/</guid>
-      <description>The FOLR1 gene and the MUC16 gene are significant genes involved in ovarian cancer, potentially serving as therapeutic targets.
-In this blog post, I will investigate the expression levels of the MUC16 gene in ovarian cancer patients who exhibit low expression of the FOLR1 gene. The analysis will involve comparing gene exression data from ovarian cancer tissue with that from normal ovary tissue. However, given the lack of normal ovary control in The Cancer Genome Atlas (TCGA) data, I have incorporated normal ovary data from the Genotype-Tissue Expression (GTEx) database.</description>
-    </item>
-    
-    <item>
       <title>TCGA GTEx data mining 1 1</title>
       <link>/en/post/2023-08-10-tcga-gtex-data-mining-1/</link>
       <pubDate>Wed, 09 Aug 2023 00:00:00 +0000</pubDate>
@@ -25,15 +15,6 @@ In this blog post, I will investigate the expression levels of the MUC16 gene in
       <guid>/en/post/2023-08-10-tcga-gtex-data-mining-1/</guid>
       <description>The FOLR1 gene and the MUC16 gene are significant genes involved in ovarian cancer, potentially serving as therapeutic targets.
 In this blog post, I will investigate the expression levels of the MUC16 gene in ovarian cancer patients who exhibit low expression of the FOLR1 gene. The analysis will involve comparing gene exression data from ovarian cancer tissue with that from normal ovary tissue. However, given the lack of normal ovary control in The Cancer Genome Atlas (TCGA) data, I have incorporated normal ovary data from the Genotype-Tissue Expression (GTEx) database.</description>
-    </item>
-    
-    <item>
-      <title>我的第一篇博文</title>
-      <link>/en/post/2023-08-09-/</link>
-      <pubDate>Wed, 09 Aug 2023 00:00:00 +0000</pubDate>
-      
-      <guid>/en/post/2023-08-09-/</guid>
-      <description>Lorem Ipsum.</description>
     </item>
     
     <item>
@@ -108,17 +89,6 @@ List all the tags In the config.toml file you can add a shortcut to display all 
     </item>
     
     <item>
-      <title>Hello R Markdown</title>
-      <link>/en/post/2020-12-01-r-rmarkdown/</link>
-      <pubDate>Tue, 01 Dec 2020 21:13:14 -0500</pubDate>
-      
-      <guid>/en/post/2020-12-01-r-rmarkdown/</guid>
-      <description>R MarkdownThis is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.
-You can embed an R code chunk like this:
-summary(cars)## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 26.00 ## Median :15.0 Median : 36.00 ## Mean :15.4 Mean : 42.98 ## 3rd Qu.</description>
-    </item>
-    
-    <item>
       <title>Attachments</title>
       <link>/en/shortcodes/attachments/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -146,8 +116,7 @@ If your page is a markdown file, attachements must be placed in a folder named l
       
       <guid>/en/credits/</guid>
       <description>Contributors Thanks to them for making Open Source Software a better place !
-And a special thanks to @vjeantet for his work on docdock, a fork of hugo-theme-learn. v2.0.0 of this theme is inspired by his work.
-Packages and libraries mermaid - generation of diagram and flowchart from text in a similar manner as markdown font awesome - the iconic font and CSS framework jQuery - The Write Less, Do More, JavaScript Library lunr - Lunr enables you to provide a great search experience without the need for external, server-side, search services&amp;hellip; horsey - Progressive and customizable autocomplete component clipboard.</description>
+@matcornic 158 commits @matalo33 48 commits @coliff 19 commits @lierdakil 16 commits @mdavids 10 commits @ozobi 5 commits @Xipas 5 commits @Alan-Cha 4 commits @pdelaby 4 commits @helfper 4 commits @Chris-Greaves 3 commits @mreithub 3 commits @massimeddu 3 commits @LinuxSuRen 3 commits @dptelecom 3 commits @willwade 3 commits @diemol 2 commits @denisvm 2 commits @hucste 2 commits @ImgBotApp 2 commits @jamesbooker 2 commits @jice-lavocat 2 commits @wikijm 2 commits @lfalin 2 commits @JianLoong 2 commits @armsnyder 1 commits @afilini 1 commits @MrAkaki 1 commits @AmirLavasani 1 commits @afs2015 1 commits @arifpedia 1 commits @berryp 1 commits @MrMoio 1 commits @ChrisLasar 1 commits @DCsunset 1 commits @IEvangelist 1 commits @fritzmg 1 commits @bogaertg 1 commits @geoffreybauduin 1 commits @giuliov 1 commits @haitch 1 commits @zeegin 1 commits @RealOrangeOne 1 commits @jared-stehler 1 commits @JohnBlood 1 commits @JohnAllen2tgt 1 commits @kamilchm 1 commits @gwleclerc 1 commits @lloydbenson 1 commits @massimocireddu 1 commits @sykesm 1 commits @nvasudevan 1 commits @nnja 1 commits @owulveryck 1 commits @654wak654 1 commits @PierreAdam 1 commits @qiwenmin 1 commits @ripienaar 1 commits @stou 1 commits @razonyang 1 commits @HontoNoRoger 1 commits @pocc 1 commits @EnigmaCurry 1 commits @taiidani 1 commits @exKAZUu 1 commits @Oddly 1 commits @sandrogauci 1 commits @shelane 1 commits @mbbx6spp 1 commits @swenzel 1 commits @tedyoung 1 commits @Thiht 1 commits @editicalu 1 commits @fossabot 1 commits @kamar535 1 commits @mtbt03 1 commits @ngocbichdao 1 commits @nonumeros 1 commits @pgorod 1 commits @proelbtn 1 commits And a special thanks to @vjeantet for his work on docdock, a fork of hugo-theme-learn.</description>
     </item>
     
     <item>

@@ -12,20 +12,20 @@
     <title>Syntaxe Markdown :: Documentation du thème Hugo Learn</title>
 
     
-    <link href="/css/nucleus.css?1691633378" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1691633378" rel="stylesheet">
-    <link href="/css/hybrid.css?1691633378" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1691633378" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1691633378" rel="stylesheet">
-    <link href="/css/auto-complete.css?1691633378" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1691633378" rel="stylesheet">
-    <link href="/css/theme.css?1691633378" rel="stylesheet">
-    <link href="/css/tabs.css?1691633378" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1691633378" rel="stylesheet">
+    <link href="/css/nucleus.css?1691635885" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1691635885" rel="stylesheet">
+    <link href="/css/hybrid.css?1691635885" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1691635885" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1691635885" rel="stylesheet">
+    <link href="/css/auto-complete.css?1691635885" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1691635885" rel="stylesheet">
+    <link href="/css/theme.css?1691635885" rel="stylesheet">
+    <link href="/css/tabs.css?1691635885" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1691635885" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1691633378"></script>
+    <script src="/js/jquery-3.3.1.min.js?1691635885"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -90,14 +90,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1691633378"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1691633378"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1691635885"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1691635885"></script>
 <script type="text/javascript">
     
         var baseurl = "\/\/fr";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1691633378"></script>
+<script type="text/javascript" src="/js/search.js?1691635885"></script>
 
     
   </div>
@@ -1207,12 +1207,12 @@ Pour des raisons évidentes, cette page n&rsquo;a pas été traduites en frança
 <p>John Gruber, the author of Markdown, puts it like this:</p>
 <blockquote>
 <p>The overriding design goal for Markdown’s formatting syntax is to make it as readable as possible. The idea is that a Markdown-formatted document should be publishable as-is, as plain text, without looking like it’s been marked up with tags or formatting instructions. While Markdown’s syntax has been influenced by several existing text-to-HTML filters, the single biggest source of inspiration for Markdown’s syntax is the format of plain text email.
-&ndash; <!-- raw HTML omitted -->John Gruber<!-- raw HTML omitted --></p>
+&ndash; <cite>John Gruber</cite></p>
 </blockquote>
 <p>Grav ships with built-in support for <a href="http://daringfireball.net/projects/markdown/">Markdown</a> and <a href="https://michelf.ca/projects/php-markdown/extra/">Markdown Extra</a>. You must enable <strong>Markdown Extra</strong> in your <code>system.yaml</code> configuration file</p>
 <p>Without further delay, let us go over the main elements of Markdown and what the resulting HTML looks like:</p>
 
-<div class="notices info" ><p><!-- raw HTML omitted --><!-- raw HTML omitted --> Bookmark this page for easy future reference!</p>
+<div class="notices info" ><p><i class="fas fa-bookmark"></i> Bookmark this page for easy future reference!</p>
 </div>
 
 <h2 id="headings">Headings</h2>
@@ -1243,8 +1243,9 @@ Pour des raisons évidentes, cette page n&rsquo;a pas été traduites en frança
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">This is a comment
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">--&gt;</span>
 </span></span></code></pre></div><p>Comment below should <strong>NOT</strong> be seen:</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<!--
+This is a comment
+-->
 <h2 id="horizontal-rules">Horizontal Rules</h2>
 <p>The HTML <code>&lt;hr&gt;</code> element is for creating a &ldquo;thematic break&rdquo; between paragraph-level elements. In markdown, you can create a <code>&lt;hr&gt;</code> with any of the following:</p>
 <ul>
@@ -1435,8 +1436,12 @@ Pour des raisons évidentes, cette page n&rsquo;a pas été traduites en frança
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">p</span>&gt;In this example, &lt;<span style="color:#f92672">code</span>&gt;&amp;lt;section&amp;gt;&amp;lt;/section&amp;gt;&lt;/<span style="color:#f92672">code</span>&gt; should be wrapped with &lt;<span style="color:#f92672">strong</span>&gt;code&lt;/<span style="color:#f92672">strong</span>&gt;.&lt;/<span style="color:#f92672">p</span>&gt;
 </span></span></code></pre></div><h3 id="indented-code">Indented code</h3>
 <p>Or indent several lines of code by at least four spaces, as in:</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<pre>
+  // Some comments
+  line 1 of code
+  line 2 of code
+  line 3 of code
+</pre>
 <p>Renders to:</p>
 <pre><code>// Some comments
 line 1 of code
@@ -1454,8 +1459,11 @@ line 3 of code
 </span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">pre</span>&gt;
 </span></span></code></pre></div><h3 id="block-code-fences">Block code &ldquo;fences&rdquo;</h3>
 <p>Use &ldquo;fences&rdquo;  <code>```</code> to block in multiple lines of code.</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<pre>
+``` markup
+Sample text here...
+```
+</pre>
 <pre tabindex="0"><code>Sample text here...
 </code></pre><p>HTML:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">pre</span>&gt;
@@ -1463,8 +1471,28 @@ line 3 of code
 </span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">pre</span>&gt;
 </span></span></code></pre></div><h3 id="syntax-highlighting">Syntax highlighting</h3>
 <p>GFM, or &ldquo;GitHub Flavored Markdown&rdquo; also supports syntax highlighting. To activate it, simply add the file extension of the language you want to use directly after the first code &ldquo;fence&rdquo;, <code>```js</code>, and syntax highlighting will automatically be applied in the rendered HTML. For example, to apply syntax highlighting to JavaScript code:</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<pre>
+```js
+grunt.initConfig({
+  assemble: {
+    options: {
+      assets: 'docs/assets',
+      data: 'src/data/*.{json,yml}',
+      helpers: 'src/custom-helpers.js',
+      partials: ['src/partials/**/*.{hbs,md}']
+    },
+    pages: {
+      options: {
+        layout: 'default.hbs'
+      },
+      files: {
+        './': ['src/templates/pages/index.hbs']
+      }
+    }
+  }
+};
+```
+</pre>
 <p>Renders to:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">grunt</span>.<span style="color:#a6e22e">initConfig</span>({
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">assemble</span><span style="color:#f92672">:</span> {
@@ -2171,16 +2199,16 @@ line 3 of code
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1691633379"></script>
-    <script src="/js/perfect-scrollbar.min.js?1691633379"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1691633379"></script>
-    <script src="/js/jquery.sticky.js?1691633379"></script>
-    <script src="/js/featherlight.min.js?1691633379"></script>
-    <script src="/js/highlight.pack.js?1691633379"></script>
+    <script src="/js/clipboard.min.js?1691635885"></script>
+    <script src="/js/perfect-scrollbar.min.js?1691635885"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1691635885"></script>
+    <script src="/js/jquery.sticky.js?1691635885"></script>
+    <script src="/js/featherlight.min.js?1691635885"></script>
+    <script src="/js/highlight.pack.js?1691635885"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1691633379"></script>
-    <script src="/js/learn.js?1691633379"></script>
-    <script src="/js/hugo-learn.js?1691633379"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1691635885"></script>
+    <script src="/js/learn.js?1691635885"></script>
+    <script src="/js/hugo-learn.js?1691635885"></script>
     
         
             <script src="https://unpkg.com/mermaid@8.8.0/dist/mermaid.min.js"></script>

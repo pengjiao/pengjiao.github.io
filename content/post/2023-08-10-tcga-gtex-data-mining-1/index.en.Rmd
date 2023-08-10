@@ -1,5 +1,5 @@
 ---
-title: TCGA GTEx data explore 1
+title: TCGA GTEx data mining 1
 author: Pengjiao
 date: '2023-08-09'
 slug: []
@@ -256,7 +256,3 @@ ggboxplot(box.df, x = "group", y = "FOLR1",
           add = "jitter") +
   stat_compare_means(comparisons = my_comparisons)
 ```
-
-
-
-

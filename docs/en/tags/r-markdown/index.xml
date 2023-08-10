@@ -18,6 +18,16 @@ In this blog post, I will investigate the expression levels of the MUC16 gene in
     </item>
     
     <item>
+      <title>TCGA GTEx data mining 1 1</title>
+      <link>/en/post/2023-08-10-tcga-gtex-data-mining-1/</link>
+      <pubDate>Wed, 09 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>/en/post/2023-08-10-tcga-gtex-data-mining-1/</guid>
+      <description>The FOLR1 gene and the MUC16 gene are significant genes involved in ovarian cancer, potentially serving as therapeutic targets.
+In this blog post, I will investigate the expression levels of the MUC16 gene in ovarian cancer patients who exhibit low expression of the FOLR1 gene. The analysis will involve comparing gene exression data from ovarian cancer tissue with that from normal ovary tissue. However, given the lack of normal ovary control in The Cancer Genome Atlas (TCGA) data, I have incorporated normal ovary data from the Genotype-Tissue Expression (GTEx) database.</description>
+    </item>
+    
+    <item>
       <title>Hello R Markdown</title>
       <link>/en/post/2020-12-01-r-rmarkdown/</link>
       <pubDate>Tue, 01 Dec 2020 21:13:14 -0500</pubDate>
